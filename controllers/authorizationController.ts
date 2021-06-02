@@ -1,6 +1,6 @@
 import { Response, Request } from 'express';
 import MSSQL from '../database/connection-MSSQL';
-import Token from '../helpers/Token';
+import Token from '../helpers/token';
 
 import { ResponseError } from '../helpers/log';
 

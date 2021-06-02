@@ -1,6 +1,6 @@
 import { Router, Response, Request } from 'express';
 import { body, check } from 'express-validator';
-import { SearchClients } from '../controllers/ClientsController';
+import { SearchClients } from '../controllers/clientsController';
 import { validateFields } from '../middlewares/validate-fields'
 import { verificarToken } from '../middlewares/authentication';
 

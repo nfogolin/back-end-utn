@@ -1,8 +1,8 @@
 import express from 'express';
 import cors from 'cors';
 import IServer from '../interfaces/server';
-import AuthorizationRouter from '../routes/Authorization';
-import ClientsRouter from '../routes/Clients';
+import AuthorizationRouter from '../routes/authorization';
+import ClientsRouter from '../routes/clients';
 import interceptorRes from '../middlewares/interceptorRes';
 
 class Server implements IServer {

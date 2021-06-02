@@ -1,4 +1,4 @@
-import Token from '../helpers/Token';
+import Token from '../helpers/token';
 import { NextFunction, Response } from 'express'
 import { RegisterLogException } from '../helpers/log'
 

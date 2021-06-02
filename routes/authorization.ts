@@ -1,6 +1,6 @@
 import { Router, Response, Request } from 'express';
 import { body, check } from 'express-validator';
-import { AuthorizationUser } from '../controllers/AuthorizationController';
+import { AuthorizationUser } from '../controllers/authorizationController';
 import { isConnectionIdValid } from '../helpers/validations'
 import { validateFields } from '../middlewares/validate-fields'
 
