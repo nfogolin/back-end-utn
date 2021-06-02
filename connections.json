@@ -1,0 +1,23 @@
+{
+    "connections" : [
+                        {
+                            "connectionId": "1bf8f674610b0f3eb6bbb795061807c19b6ef5xz",
+                            "host" : {
+                                "name" : "localhost",
+                                "database" : "sgdatosp",
+                                "port" : "1433",
+                                "password" : "whitebox-32"
+                            }
+                        },
+                        {
+                            "connectionId": "1bf8f674610b0f3eb6bbb795061807c19b6ef5xx",
+                            "host" : {
+                                "name" : "",
+                                "database" : "",
+                                "port" : "",
+                                "password" : ""
+                            }
+
+                        }
+                    ]
+}
