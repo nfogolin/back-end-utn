@@ -1,9 +1,10 @@
 const log = require('log-to-file');
 import MSSQL from '../database/connection-MSSQL';
+import { ErrorsEnum } from '../helpers/errorsEnum'
 
 const RegisterLogException = (sLog:string, activityId:string):string => {
     log("activityId: " + activityId + " => " + sLog);
-    return "La operación no se pudo finalizar.";
+    return ErrorsEnum.GetErrorDescript(ErrorsEnum.Errors.COULD_NOT_OPERATION);
 }
 
 const ResponseError = (req:any, res:any, err:any) =>{

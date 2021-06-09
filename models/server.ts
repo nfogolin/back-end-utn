@@ -4,6 +4,7 @@ import IServer from '../interfaces/server';
 import AuthorizationRouter from '../routes/authorization';
 import ClientsRouter from '../routes/clients';
 import interceptorRes from '../middlewares/interceptorRes';
+import configs from '../helpers/configs';
 
 class Server implements IServer {
 
@@ -13,8 +14,8 @@ class Server implements IServer {
 
     constructor(){
         this.App = express();
-        this.Port = Number.parseInt(process.env.PORT || '8085');
-        this.AuthorizationPath = (process.env.AUTHORIZATION_PATH || '').toString();
+        this.Port = Number.parseInt(configs.PORT || '8085');
+        this.AuthorizationPath = (configs.AUTHORIZATION_PATH || '').toString();
 
         this.Middlewares();
         this.Routes();

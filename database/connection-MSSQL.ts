@@ -1,6 +1,8 @@
 const { TYPES } = require("mssql");
 const sql = require('mssql/msnodesqlv8');
 import { query } from 'jsonpath';
+import configs from '../helpers/configs';
+import { ErrorsEnum } from '../helpers/errorsEnum'
 
 class MSSQL {
 
@@ -12,7 +14,7 @@ class MSSQL {
 
     createConnection = () => {
         try{
-          let [dataBaseConfig]:any = query(require((process.env.CONNECTIONS_CONFIG || "").toString()), '$..connections[?(@.connectionId=="' + this.connectionId + '")]');
+          let [dataBaseConfig]:any = query(require(configs.APP_CONFIGS), '$..connections[?(@.connectionId=="' + this.connectionId + '")]');
           return new sql.ConnectionPool({
             database: dataBaseConfig.host.database,
             server: dataBaseConfig.host.name,
@@ -46,7 +48,7 @@ class MSSQL {
         sUserLastName: result.output.userLastName,
         nUserType: result.output.userType
         },
-          err: (result.output.userID == null?'El nombre de usuario y/o el la contraseña son inválidos.': null) 
+          err: (result.output.userID == null?ErrorsEnum.GetErrorDescript(ErrorsEnum.Errors.ERROR_USER_OR_PASS_INVALID): null) 
         };
       } catch (err) {
         throw err;
@@ -76,12 +78,9 @@ class MSSQL {
       .execute('sp_LogServiceActivity');
     return {
       result: {
-        nIdUser: result.output.userID,
-        sUserNameReal: result.output.userNameReal,
-        sUserLastName: result.output.userLastName,
-        nUserType: result.output.userType
+        
       },
-      err: (result.output.userID == null?'El nombre de usuario y/o el la contraseña son inválidos.': null) 
+      err: (result.output.errorCode != null?result.output.errorCode: null) 
     };
     } catch (err) {
       throw err;
