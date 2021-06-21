@@ -102,6 +102,79 @@ class MSSQL {
       }
     };
 
+    GetCountries = async (countryId:number
+    ) => {
+      try {
+        const pool = await this.createConnection();
+        const result = await pool.request()
+          .query(`select * from GetCountryEntity(${countryId})`);
+        return {
+          result: result.recordset,
+          err: null
+        };
+      } catch (err) {
+        throw err;
+      }
+    };
+
+    GetProvinces = async (countryId?:number
+                        , provinceId?:number
+    ) => {
+      try {
+        const pool = await this.createConnection();
+        const result = await pool.request()
+          .input("provinceId", TYPES.BigInt, provinceId)
+          .input("countryId", TYPES.BigInt, countryId)
+          .execute('sp_GetProvinces');
+          return {
+            result: result.recordset,
+            err: null
+          };
+      } catch (err) {
+        throw err;
+      }
+    };
+
+    GetCities = async (cityId?:number
+                        , provinceId?:number
+                        , countryId?:number
+    ) => {
+      try {
+        const pool = await this.createConnection();
+        const result = await pool.request()
+          .input("cityId", TYPES.BigInt, cityId)
+          .input("provinceId", TYPES.BigInt, provinceId)
+          .input("countryId", TYPES.BigInt, countryId)
+          .execute('sp_GetCities');
+          return {
+            result: result.recordset,
+            err: null
+          };
+      } catch (err) {
+        throw err;
+      }
+    };
+
+    GetCompany = async () => {
+      try {
+        const pool = await this.createConnection();
+        const result = await pool.request()
+        .output("errorCode", TYPES.BigInt)
+        .output("errorDescription", TYPES.Varchar)
+        .execute('sp_GetCompany');
+        return {
+          result: (result.output.errorCode != null?null:result.recordset),
+          err: (result.output.errorCode != null?
+            {
+              errorCode : result.output.errorCode,
+              errorDescript : result.output.errorDescription
+            }
+            : null) 
+        };
+      } catch (err) {
+        throw err;
+      }
+    };
 }
 
 export default MSSQL;

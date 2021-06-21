@@ -44,6 +44,10 @@
         {
             "errorNum" : 6,
             "errorDescript" : "La operación no se pudo finalizar."
+        },
+        {
+            "errorNum" : 7,
+            "errorDescript" : "El parámetro es requerido o su tipo es inválido"
         }
     ]
 }

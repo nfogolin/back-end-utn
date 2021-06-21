@@ -7,7 +7,8 @@ enum Errors {
     ERROR_USER_OR_PASS_INVALID = 3,
     CONNECTION_ID_INVALID = 4,
     TOKEN_INVALID = 5,
-    COULD_NOT_OPERATION = 6
+    COULD_NOT_OPERATION = 6,
+    PARAM_MISSING_OR_TYPE_MISSING = 7
 }
 
 export class ErrorsEnum {
