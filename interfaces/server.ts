@@ -8,7 +8,11 @@ interface IServer {
     GetProvincePath: string,
     GetCountriesPath: string,
     GetCityPath: string,
-    GetCompany: string
+    GetCompanyPath: string,
+    GetCustomersPath: string,
+    CreateUserPath:string,
+    UpdatePasswordPath:string,
+    GetPriceListsPath:string
 
     Middlewares(): void
 

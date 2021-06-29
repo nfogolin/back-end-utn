@@ -175,6 +175,111 @@ class MSSQL {
         throw err;
       }
     };
+
+    GetCustomers = async (userId : number) => {
+      try {
+        const pool = await this.createConnection();
+        const result = await pool.request()
+        .input("userID", TYPES.BigInt, userId)
+        .execute('sp_GetCustomers');
+        return {
+          result: (result.output.errorCode != null?null:result.recordset),
+          err: (result.output.errorCode != null?
+            {
+              errorCode : result.output.errorCode,
+              errorDescript : result.output.errorDescription
+            }
+            : null) 
+        };
+      } catch (err) {
+        throw err;
+      }
+    };
+
+    CreateUser = async (userName:string
+                    , password:string
+                    , repeatPassword:string
+                    , nombre:string
+                    , fantasia:string
+                    , apellido:string
+                    , mail:string
+                    , cuit:string
+                    , ciudadId:number) => {
+      try {
+        const pool = await this.createConnection();
+        const result = await pool.request()
+        .input("sUserName", TYPES.VarChar, userName)
+        .input("sPassword", TYPES.VarChar, password)
+        .input("sRepeatNewPassword", TYPES.VarChar, repeatPassword)
+        .input("sNombre", TYPES.VarChar, nombre)
+        .input("sFantasia", TYPES.VarChar, fantasia)
+        .input("sApellido", TYPES.VarChar, apellido)
+        .input("sEmail", TYPES.VarChar, mail)
+        .input("sCuit", TYPES.VarChar, cuit)
+        .input("nIdCiudad", TYPES.BigInt, ciudadId)
+        .input("nIdTipoIva", TYPES.BigInt, 2) //Lo hardcodeo.
+        .output("nIdUser", TYPES.BigInt)
+        .output("nIdClienteProcessed", TYPES.BigInt)
+        .output("errorCode", TYPES.Varchar)
+        .output("errorDescription", TYPES.Varchar)
+        .execute('sp_CreateLogin');
+        return {
+          result: (result.output.errorCode != null?null:{ nIdUser : result.output.nIdUser, nIdClienteProcessed : result.output.nIdClienteProcessed }),
+          err: (result.output.errorCode != null?
+            {
+              errorCode : result.output.errorCode,
+              errorDescript : result.output.errorDescription
+            }
+            : null) 
+        };
+      } catch (err) {
+        throw err;
+      }
+    };
+
+    UpdateUserPassword = async (userId:number
+                    , oldPassword:string
+                    , newPassword:string
+                    , repeatPassword:string) => {
+      try {
+        const pool = await this.createConnection();
+        const result = await pool.request()
+        .input("userID", TYPES.BigInt, userId)
+        .input("oldPassword", TYPES.VarChar, oldPassword)
+        .input("newPassword", TYPES.VarChar, newPassword)
+        .input("repeatNewPassword", TYPES.VarChar, repeatPassword)
+        .output("errorCode", TYPES.Varchar)
+        .output("errorDescription", TYPES.Varchar)
+        .execute('sp_ChangeUserPassWord');
+        return {
+          result: null,
+          err: (result.output.errorCode != null?
+            {
+              errorCode : result.output.errorCode,
+              errorDescript : result.output.errorDescription
+            }
+            : null) 
+        };
+      } catch (err) {
+        throw err;
+      }
+    };
+
+    GetPriceList = async (userId:number) => {
+      try {
+        const pool = await this.createConnection();
+        const result = await pool.request()
+        .input("userID", TYPES.BigInt, userId)
+        .output("nCantidadPaginas", TYPES.BigInt)
+        .execute('sp_GetPriceList');
+        return {
+          result: (result.recordset),
+          err: null 
+        };
+      } catch (err) {
+        throw err;
+      }
+    };
 }
 
 export default MSSQL;

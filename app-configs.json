@@ -48,6 +48,10 @@
         {
             "errorNum" : 7,
             "errorDescript" : "El parámetro es requerido o su tipo es inválido"
+        },
+        {
+            "errorNum" : 8,
+            "errorDescript" : "Las contraseñas no coinciden"
         }
     ]
 }

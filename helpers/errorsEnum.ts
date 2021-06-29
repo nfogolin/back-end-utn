@@ -8,7 +8,8 @@ enum Errors {
     CONNECTION_ID_INVALID = 4,
     TOKEN_INVALID = 5,
     COULD_NOT_OPERATION = 6,
-    PARAM_MISSING_OR_TYPE_MISSING = 7
+    PARAM_MISSING_OR_TYPE_MISSING = 7,
+    PASSWORDS_NOT_MATCH = 8
 }
 
 export class ErrorsEnum {

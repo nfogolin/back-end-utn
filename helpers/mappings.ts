@@ -1,6 +1,10 @@
 import ICity from "../interfaces/cities";
 import ICompany from "../interfaces/company";
 import ICountry from "../interfaces/countries";
+import ICustomer from "../interfaces/customers";
+import IItemPriceList from "../interfaces/itemsPriceList";
+import IPriceList from "../interfaces/priceLists";
+import IProduct from "../interfaces/products";
 import IProvince from "../interfaces/provinces";
 
 export class Mappings {
@@ -10,24 +14,32 @@ export class Mappings {
         let Results: Array<any> = [];
 
         if (resultMssql != undefined){
-            resultMssql.forEach((dataRow)=>{
-                switch (interfaceName) {
-                    case 'ICountry':
-                        Results.push(Mappings.MappingCountries(dataRow));
-                        break;
-                    case 'IProvince':
-                        Results.push(Mappings.MappingProvinces(dataRow));
-                        break;
-                    case 'ICity':
-                        Results.push(Mappings.MappingCities(dataRow));
-                        break;
-                    case 'ICompany':
+            if (['IPriceList'].includes(interfaceName) == false){
+                resultMssql.forEach((dataRow)=>{
+                    switch (interfaceName) {
+                        case 'ICountry':
+                            Results.push(Mappings.MappingCountries(dataRow));
+                            break;
+                        case 'IProvince':
+                            Results.push(Mappings.MappingProvinces(dataRow));
+                            break;
+                        case 'ICity':
+                            Results.push(Mappings.MappingCities(dataRow));
+                            break;
+                        case 'ICompany':
                             Results.push(Mappings.MappingCompany(dataRow));
                             break;
-                    default:
-                        break;
-                }
-            });
+                        case 'ICustomer':
+                            Results.push(Mappings.MappingCustomers(dataRow));
+                            break;
+                        default:
+                            break;
+                    }
+                });
+            }else{
+                Results.push(Mappings.MappingPriceList(resultMssql));
+            }
+            
         }
 
         return Results;
@@ -114,5 +126,103 @@ export class Mappings {
         }
 
         return Company!;
+    }
+
+    private static MappingCustomers(customer:any):ICustomer {
+
+        let Customer : ICustomer;
+
+        if (customer.Customer_nIdCodigo != undefined){
+
+            Customer = {
+                Id : customer.Customer_nIdCodigo,
+                Code : customer.Customer_nCodigo ,
+                Descript : customer.Customer_sNombre,
+                FantasyName : customer.Customer_sFantasia,
+                Address : customer.Customer_sDireccion,
+                Phone : customer.Customer_sTelefono,
+                Email : customer.Customer_sEmail,
+                Cuit : customer.Customer_sCuit,
+                City : this.MappingCities(customer)
+            }
+
+        }   
+
+        return Customer!;
+    }
+
+    private static MappingProducts(product:any):IProduct {
+
+        let Product : IProduct;
+
+        if (product.Product_nIdCodigo != undefined) {
+
+            Product = {
+                Id : product.Product_nIdCodigo,
+                Code : product.Product_sCodigo,
+                Descript : product.Product_sNombre,
+                Quantity : product.DepositDetail_nCantidad,
+                AdditionalDescript : product.Product_sDescAdicional,
+                Images : [
+                        /*product.Product_ImgBinary 
+                        , product.Product_ImgBinary2
+                        , product.Product_ImgBinary3*/
+                ]   
+            }
+
+        }
+
+        return Product!;
+    }
+
+    private static MappingItemPriceList(item:any): IItemPriceList {
+
+        let ItemPriceList:IItemPriceList;
+
+        if (item.ItemPriceList_nIdCodigo != undefined){
+            ItemPriceList = {
+                Id : item.ItemPriceList_nIdCodigo,
+                AddedTax : item.Alicuota,
+                ClientDiscount : item.CustomerDiscount,
+                EquivalentDiscount : item.DescEquivalente,
+                EspecifyProductDiscount : item.Detalle_Descuentos_Productos_nTotal,
+                FinalPrice : item.PrecioFinalSinDesc,
+                FinalPriceWithDiscount : item.PrecioFinalConDesc,
+                ItemDiscount : item.Detalle_Descuentos_Rubros_nTotal,
+                Price : item.ItemPriceList_nPrecio,
+                PriceWithDiscount : item.PrecioConDesc,
+                Product : this.MappingProducts(item)
+            }
+        }
+    
+        return ItemPriceList!;
+    }
+
+    private static MappingPriceList(resultMssql:any[]):IPriceList {
+        
+        let PriceList:IPriceList;
+        let ItemPriceList:IItemPriceList;
+        let DetailItemPriceList: Array<IItemPriceList> = new Array();
+
+        resultMssql.forEach((priceList)=>{
+            if (priceList.PriceList_nIdCodigo != undefined){
+
+                ItemPriceList = this.MappingItemPriceList(priceList);
+
+                if (PriceList == undefined){
+                    PriceList = {
+                        Id : priceList.PriceList_nIdCodigo,
+                        Code : priceList.PriceList_nCodigo,
+                        Descript : priceList.PriceList_sNombre,
+                        DetailPriceList : DetailItemPriceList
+                    }
+                }
+
+                DetailItemPriceList.push(ItemPriceList);
+                
+            }
+        });
+
+        return PriceList!;
     }
 }
