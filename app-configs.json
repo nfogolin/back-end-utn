@@ -6,7 +6,8 @@
                 "name" : "localhost",
                 "database" : "sgdatosp",
                 "port" : "1433",
-                "password" : "whitebox-32"
+                "password" : "whitebox-32",
+                "timeout" : 10000
             }
         },
         {
@@ -15,7 +16,8 @@
                 "name" : "",
                 "database" : "",
                 "port" : "",
-                "password" : ""
+                "password" : "",
+                "timeout" : 0
             }
 
         }

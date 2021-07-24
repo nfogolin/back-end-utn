@@ -24,8 +24,13 @@ export const verificarToken = (req:any, res:any, next:NextFunction) =>{
         RegisterLogException(JSON.stringify(req.body), req.headers["activityId"]);
         RegisterLogException(err, req.headers["activityId"]);
         res.status(401).json({
-            activityId : req.headers["activityId"],
-            message: err
+            Error : [
+                {
+                msg: err,
+                location: 'service',
+                activityId : req.headers["activityId"]
+                }
+            ]
         });
     });
 }

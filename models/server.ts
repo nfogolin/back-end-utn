@@ -12,6 +12,7 @@ import CompanyRouter from '../routes/company';
 import CustomersRouter from '../routes/customers';
 import UserRouter from '../routes/users';
 import PriceListRouter from '../routes/priceLists';
+import ValidateTokenRouter from '../routes/validateToken';
 
 class Server implements IServer {
 
@@ -27,6 +28,7 @@ class Server implements IServer {
     CreateUserPath: string;
     UpdatePasswordPath: string;
     GetPriceListsPath: string;
+    GetValidateTokenPath: string;
 
     constructor(){
         this.App = express();
@@ -41,6 +43,7 @@ class Server implements IServer {
         this.CreateUserPath = (configs.CREATE_USER_PATH || '').toString();
         this.UpdatePasswordPath = (configs.UPDATE_PASSWORD_PATH || '').toString();
         this.GetPriceListsPath = (configs.GET_PRICE_LISTS_PATH || '').toString();
+        this.GetValidateTokenPath = (configs.VALIDATE_TOKEN_PATH || '').toString();
 
         this.Middlewares();
         this.Routes();
@@ -64,6 +67,7 @@ class Server implements IServer {
         this.App.use(this.CreateUserPath, UserRouter);
         this.App.use(this.UpdatePasswordPath, UserRouter);
         this.App.use(this.GetPriceListsPath, PriceListRouter)
+        this.App.use(this.GetValidateTokenPath, ValidateTokenRouter)
         this.App.use('*', express.static('public'));
     }
 

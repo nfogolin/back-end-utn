@@ -17,7 +17,12 @@ const GetPriceLists = (req:any, res:Response) => {
             return res.json(
                 {
                     PriceLists: Mappings.MappingData(result.result, 'IPriceList'),
-                    Error: result.err
+                    Error : (result.err != null?[
+                        {
+                        msg: result.err.errorDescript,
+                        location: 'service'
+                        }
+                    ]:null)
                 }
             )
         }).catch((err)=>{

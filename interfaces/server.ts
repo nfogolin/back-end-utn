@@ -13,6 +13,7 @@ interface IServer {
     CreateUserPath:string,
     UpdatePasswordPath:string,
     GetPriceListsPath:string
+    GetValidateTokenPath:string
 
     Middlewares(): void
 

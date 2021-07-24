@@ -6,6 +6,7 @@ import IItemPriceList from "../interfaces/itemsPriceList";
 import IPriceList from "../interfaces/priceLists";
 import IProduct from "../interfaces/products";
 import IProvince from "../interfaces/provinces";
+import IUser from "../interfaces/users";
 
 export class Mappings {
 
@@ -31,6 +32,9 @@ export class Mappings {
                             break;
                         case 'ICustomer':
                             Results.push(Mappings.MappingCustomers(dataRow));
+                            break;
+                        case 'IUser':
+                            Results.push(Mappings.MappingUsers(dataRow));
                             break;
                         default:
                             break;
@@ -60,6 +64,23 @@ export class Mappings {
         }
 
         return Country!;
+    }
+
+    private static MappingUsers (user:any):IUser{
+
+        let User: IUser;
+
+        if (user.Nombre != undefined){
+
+            User = {
+                nIdUser : user.IdCodigo,
+                sUserNameReal : user.Nombre,
+                sUserLastName : user.Apellido,
+                nUserType : 1
+            };
+        }
+
+        return User!;
     }
 
     private static MappingProvinces (province:any):IProvince{

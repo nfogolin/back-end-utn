@@ -28,7 +28,12 @@ const AuthorizationUser = (req:Request, res:Response) => {
                             cn : connectionId
                         }):null)
                     },
-                    Error: result.err,
+                    Error : (result.err != null?[
+                        {
+                        msg: result.err.errorDescript,
+                        location: 'service'
+                        }
+                    ]:null)
                 }
             )
         }).catch((err)=>{

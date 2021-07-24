@@ -21,7 +21,8 @@ class MSSQL {
             driver: 'msnodesqlv8',
             options: {
                 trustedConnection: true
-            }
+            },
+            setTimeout: dataBaseConfig.host.timeout
           }).connect();
         }catch(e){
           throw e;
@@ -48,7 +49,12 @@ class MSSQL {
         sUserLastName: result.output.userLastName,
         nUserType: result.output.userType
         },
-          err: (result.output.userID == null?ErrorsEnum.GetErrorDescript(ErrorsEnum.Errors.ERROR_USER_OR_PASS_INVALID): null) 
+          err: (result.output.userID == null?
+            {
+              errorCode : 0,
+              errorDescript : ErrorsEnum.GetErrorDescript(ErrorsEnum.Errors.ERROR_USER_OR_PASS_INVALID)
+            }
+            : null) 
         };
       } catch (err) {
         throw err;
@@ -80,22 +86,32 @@ class MSSQL {
       result: {
         
       },
-      err: (result.output.errorCode != null?result.output.errorCode: null) 
+      err: (result.output.errorCode != null?
+        {
+          errorCode : result.output.errorCode,
+          errorDescript : result.output.errorDescription
+        }
+        : null) 
     };
     } catch (err) {
       throw err;
       }
     };
 
-    SearchClients = async (IdEmpresa:string) => {
+    GetUserInfo = async (IdUser:number) => {
       try {
         const pool = await this.createConnection();
         const result = await pool.request()
-        .input("IdEmpresa", TYPES.VarChar, IdEmpresa)
-        .query(`select TOP 50 * from Clientes(NOLOCK) where IdEmpresa = @IdEmpresa`);
+        .input("IdUser", TYPES.Int, IdUser)
+        .query(`select IdCodigo, Nombre, Apellido, NUsuario from Empresas.dbo.Usuarios (NOLOCK) where Fecha_Anula IS NULL and IdCodigo = @IdUser`);
           return {
             result: result.recordset,
-            err: null
+            err: (result.output.errorCode != null?
+              {
+                errorCode : result.output.errorCode,
+                errorDescript : result.output.errorDescription
+              }
+              : null)
           };
       } catch (err) {
         throw err;
@@ -110,7 +126,12 @@ class MSSQL {
           .query(`select * from GetCountryEntity(${countryId})`);
         return {
           result: result.recordset,
-          err: null
+          err: (result.output.errorCode != null?
+            {
+              errorCode : result.output.errorCode,
+              errorDescript : result.output.errorDescription
+            }
+            : null)
         };
       } catch (err) {
         throw err;
@@ -128,7 +149,12 @@ class MSSQL {
           .execute('sp_GetProvinces');
           return {
             result: result.recordset,
-            err: null
+            err: (result.output.errorCode != null?
+              {
+                errorCode : result.output.errorCode,
+                errorDescript : result.output.errorDescription
+              }
+              : null)
           };
       } catch (err) {
         throw err;
@@ -148,7 +174,12 @@ class MSSQL {
           .execute('sp_GetCities');
           return {
             result: result.recordset,
-            err: null
+            err: (result.output.errorCode != null?
+              {
+                errorCode : result.output.errorCode,
+                errorDescript : result.output.errorDescription
+              }
+              : null)
           };
       } catch (err) {
         throw err;
@@ -274,7 +305,12 @@ class MSSQL {
         .execute('sp_GetPriceList');
         return {
           result: (result.recordset),
-          err: null 
+          err: (result.output.errorCode != null?
+            {
+              errorCode : result.output.errorCode,
+              errorDescript : result.output.errorDescription
+            }
+            : null)
         };
       } catch (err) {
         throw err;

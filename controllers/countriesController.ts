@@ -17,7 +17,12 @@ const GetCountries = (req:any, res: Response) =>{
         mssql.GetCountries(countryId).then((result) =>{
             return res.json({
                 Countries: Mappings.MappingData(result.result, 'ICountry'),
-                Error: result.err
+                Error : (result.err != null?[
+                    {
+                    msg: result.err.errorDescript,
+                    location: 'service'
+                    }
+                ]:null)
             });
         }).catch((err)=>{
             ResponseError(req, res, err);

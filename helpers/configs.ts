@@ -15,6 +15,7 @@ export = {
     CREATE_USER_PATH : process.env.CREATE_USER_PATH || "",
     UPDATE_PASSWORD_PATH : process.env.UPDATE_PASSWORD_PATH || "",
     GET_PRICE_LISTS_PATH : process.env.GET_PRICE_LISTS_PATH || "",
+    VALIDATE_TOKEN_PATH : process.env.VALIDATE_TOKEN || "",
     PORT : process.env.PORT || "",
     SEED_TOKEN : process.env.SEED_TOKEN || "",
     EXPIRATION_TOKEN : process.env.EXPIRATION_TOKEN || "",

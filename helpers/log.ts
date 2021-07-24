@@ -12,8 +12,13 @@ const ResponseError = (req:any, res:any, err:any) =>{
     RegisterLogActivity(req, res, 3, req.baseUrl, undefined, err.toString());
 
     res.status(401).json({
-        Error : RegisterLogException(err, (req.headers["activityId"] || "").toString()),
-        activityId : req.headers["activityId"]
+        Error : [
+            {
+                msg: RegisterLogException(err, (req.headers["activityId"] || "").toString()),
+                location: 'service',
+                activityId : req.headers["activityId"]
+            }
+        ]
     });
 }
 

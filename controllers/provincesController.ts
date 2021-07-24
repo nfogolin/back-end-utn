@@ -17,7 +17,12 @@ const GetProvinces = (req:any, res: Response) =>{
         mssql.GetProvinces(countryId, provinceId).then((result) =>{
             return res.json({
                 Provinces: Mappings.MappingData(result.result, 'IProvince'),
-                Error: result.err
+                Error : (result.err != null?[
+                    {
+                    msg: result.err.errorDescript,
+                    location: 'service'
+                    }
+                ]:null)
             });
         }).catch((err)=>{
             ResponseError(req, res, err);

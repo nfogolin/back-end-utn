@@ -12,7 +12,12 @@ const isConnectionIdValid = async (req:Request, res:Response, next:any) =>{
     const [dataBaseConfig]:any = await query(require((configs.APP_CONFIGS || "").toString()), '$..connections[?(@.connectionId=="' + connectionId + '")]');
     if (!dataBaseConfig){
         return res.status(401).json({
-            error: ErrorsEnum.GetErrorDescript(ErrorsEnum.Errors.CONNECTION_ID_INVALID)
+            Error : [
+                {
+                    msg: ErrorsEnum.GetErrorDescript(ErrorsEnum.Errors.CONNECTION_ID_INVALID),
+                    location: 'service'
+                }
+            ]
         });
     }
 

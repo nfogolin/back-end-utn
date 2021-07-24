@@ -15,10 +15,15 @@ const GetCities = (req:any, res: Response) =>{
     try{
         let mssql = new MSSQL(connectionId);
 
-        mssql.GetCities(cityId, countryId, provinceId).then((result) =>{
+        mssql.GetCities(cityId, provinceId, countryId).then((result) =>{
             return res.json({
                 Cities: Mappings.MappingData(result.result, 'ICity'),
-                Error: result.err
+                Error : (result.err != null?[
+                    {
+                    msg: result.err.errorDescript,
+                    location: 'service'
+                    }
+                ]:null)
             });
         }).catch((err)=>{
             ResponseError(req, res, err);

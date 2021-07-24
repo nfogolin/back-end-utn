@@ -15,7 +15,12 @@ const SearchClients = (req:any, res:Response) => {
             return res.json(
                 {
                     Clientes: result.result,
-                    Error: result.err
+                    Error : (result.err != null?[
+                        {
+                        msg: result.err.errorDescript,
+                        location: 'service'
+                        }
+                    ]:null)
                 }
             )
         }).catch((err)=>{

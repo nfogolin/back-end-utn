@@ -14,7 +14,12 @@ const GetCompany = (req:any, res:Response) =>{
         mssql.GetCompany().then((result) =>{
             return res.json({
                 Company: Mappings.MappingData(result.result, 'ICompany'),
-                Error: result.err
+                Error : (result.err != null?[
+                    {
+                    msg: result.err.errorDescript,
+                    location: 'service'
+                    }
+                ]:null)
             });
         }).catch((err)=>{
             ResponseError(req, res, err);

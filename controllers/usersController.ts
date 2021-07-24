@@ -37,7 +37,8 @@ const CreateUser = (req:any, res:Response) =>{
                 mssql.GetCustomers(result.result?.nIdUser).then((resultCms) =>{
                     res.json({
                         UserId : result.result?.nIdUser,
-                        Customer : Mappings.MappingData(resultCms.result, 'ICustomer')
+                        Customer : Mappings.MappingData(resultCms.result, 'ICustomer'),
+                        Error: null
                     });
                 }).catch((err)=>{
                     ResponseError(req, res, err);
@@ -45,7 +46,12 @@ const CreateUser = (req:any, res:Response) =>{
                 
             }else{
                 res.json({
-                    Error: result.err
+                    Error : (result.err != null?[
+                        {
+                        msg: result.err.errorDescript,
+                        location: 'service'
+                        }
+                    ]:null)
                 });
             }
 
@@ -76,7 +82,12 @@ const UpdateUserPassword = (req:any, res:Response) =>{
         ).then((result) =>{
 
             res.json({
-                Error: result.err
+                Error : (result.err != null?[
+                    {
+                    msg: result.err.errorDescript,
+                    location: 'service'
+                    }
+                ]:null)
             });
 
         }).catch((err)=>{
@@ -87,7 +98,35 @@ const UpdateUserPassword = (req:any, res:Response) =>{
     }
 }
 
+const GetUserData = (req:any, res: Response) =>{
+
+    let userId:number = req.us;
+    
+    let connectionId:string = (req.cn || "").toString();
+
+    try{
+        let mssql = new MSSQL(connectionId);
+
+        mssql.GetUserInfo(userId).then((result) =>{
+            return res.json({
+                User: Mappings.MappingData(result.result, 'IUser'),
+                Error : (result.err != null?[
+                    {
+                    msg: result.err.errorDescript,
+                    location: 'service'
+                    }
+                ]:null)
+            });
+        }).catch((err)=>{
+            ResponseError(req, res, err);
+        });
+    }catch(e){
+        ResponseError(req, res, e);
+    }
+}
+
 export {
     CreateUser,
-    UpdateUserPassword
+    UpdateUserPassword,
+    GetUserData
 }

@@ -16,7 +16,12 @@ const GetCustomers = (req:any, res:Response) =>{
         mssql.GetCustomers(userId).then((result) =>{
             return res.json({
                 Customers: Mappings.MappingData(result.result, 'ICustomer'),
-                Error: result.err
+                Error : (result.err != null?[
+                    {
+                    msg: result.err.errorDescript,
+                    location: 'service'
+                    }
+                ]:null)
             });
         }).catch((err)=>{
             ResponseError(req, res, err);
