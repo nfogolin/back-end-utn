@@ -185,9 +185,9 @@ export class Mappings {
                 Quantity : product.DepositDetail_nCantidad,
                 AdditionalDescript : product.Product_sDescAdicional,
                 Images : [
-                        /*product.Product_ImgBinary 
+                        product.Product_ImgBinary 
                         , product.Product_ImgBinary2
-                        , product.Product_ImgBinary3*/
+                        , product.Product_ImgBinary3
                 ]   
             }
 
