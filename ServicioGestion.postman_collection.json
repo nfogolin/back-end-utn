@@ -1,0 +1,359 @@
+{
+	"info": {
+		"_postman_id": "71d2b85a-e4af-465f-a749-2dc8d1efb43f",
+		"name": "ServicioGestion",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "AuthorizationUser",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "connectionId",
+						"value": "1bf8f674610b0f3eb6bbb795061807c19b6ef5xz",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"Usuario\": \"\",\r\n    \"Password\" : \"v1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{url}}:8085/Authorization/AuthorizationUser",
+					"protocol": "http",
+					"host": [
+						"{{url}}"
+					],
+					"port": "8085",
+					"path": [
+						"Authorization",
+						"AuthorizationUser"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetCountries",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "connectionId",
+						"value": "1bf8f674610b0f3eb6bbb795061807c19b6ef5xz",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"Usuario\": \"\",\r\n    \"Password\" : \"v1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{url}}:8085/Authorization/AuthorizationUser",
+					"protocol": "http",
+					"host": [
+						"{{url}}"
+					],
+					"port": "8085",
+					"path": [
+						"Authorization",
+						"AuthorizationUser"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetProvinces",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "connectionId",
+						"type": "text",
+						"value": "1bf8f674610b0f3eb6bbb795061807c19b6ef5xz"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{url}}:8085/Provinces/GetProvinces",
+					"protocol": "http",
+					"host": [
+						"{{url}}"
+					],
+					"port": "8085",
+					"path": [
+						"Provinces",
+						"GetProvinces"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetCities",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "connectionId",
+						"type": "text",
+						"value": "1bf8f674610b0f3eb6bbb795061807c19b6ef5xz"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{url}}:8085/Provinces/GetProvinces",
+					"protocol": "http",
+					"host": [
+						"{{url}}"
+					],
+					"port": "8085",
+					"path": [
+						"Provinces",
+						"GetProvinces"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetCompany",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "connectionId",
+						"type": "text",
+						"value": "1bf8f674610b0f3eb6bbb795061807c19b6ef5xz"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{url}}:8085/Provinces/GetProvinces",
+					"protocol": "http",
+					"host": [
+						"{{url}}"
+					],
+					"port": "8085",
+					"path": [
+						"Provinces",
+						"GetProvinces"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateUser",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "connectionId",
+						"type": "text",
+						"value": "1bf8f674610b0f3eb6bbb795061807c19b6ef5xz"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"UserName\" : \"nfg\",\r\n    \"Password\" : \"\",\r\n    \"RepeatPaswoord\" : \"\",\r\n    \"Nombre\" : \"\",\r\n    \"Fantasia\" : \"\",\r\n    \"Apellido\" : \"\",\r\n    \"Mail\" : \"\",\r\n    \"Cuit\" : \"\",\r\n    \"Ciudad\" : {\r\n        \"Id\": 1,\r\n        \"Code\": 1,\r\n        \"Descript\": \"Rafaela\",\r\n        \"CodPostal\": \"2300\",\r\n        \"Province\": {\r\n            \"Id\": 1,\r\n            \"Code\": 1,\r\n            \"Descript\": \"Santa Fe\",\r\n            \"Country\": {\r\n                \"Id\": 1,\r\n                \"Code\": 1,\r\n                \"Descript\": \"Argentina\"\r\n            }\r\n        }\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{url}}:8085/Users/CreateUser",
+					"protocol": "http",
+					"host": [
+						"{{url}}"
+					],
+					"port": "8085",
+					"path": [
+						"Users",
+						"CreateUser"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdatePassord",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "connectionId",
+						"type": "text",
+						"value": "1bf8f674610b0f3eb6bbb795061807c19b6ef5xz"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"UserName\" : \"nfg\",\r\n    \"Password\" : \"\",\r\n    \"RepeatPaswoord\" : \"\",\r\n    \"Nombre\" : \"\",\r\n    \"Fantasia\" : \"\",\r\n    \"Apellido\" : \"\",\r\n    \"Mail\" : \"\",\r\n    \"Cuit\" : \"\",\r\n    \"Ciudad\" : {\r\n        \"Id\": 1,\r\n        \"Code\": 1,\r\n        \"Descript\": \"Rafaela\",\r\n        \"CodPostal\": \"2300\",\r\n        \"Province\": {\r\n            \"Id\": 1,\r\n            \"Code\": 1,\r\n            \"Descript\": \"Santa Fe\",\r\n            \"Country\": {\r\n                \"Id\": 1,\r\n                \"Code\": 1,\r\n                \"Descript\": \"Argentina\"\r\n            }\r\n        }\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{url}}:8085/Users/CreateUser",
+					"protocol": "http",
+					"host": [
+						"{{url}}"
+					],
+					"port": "8085",
+					"path": [
+						"Users",
+						"CreateUser"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetPriceList",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "connectionId",
+						"type": "text",
+						"value": "1bf8f674610b0f3eb6bbb795061807c19b6ef5xz"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"UserName\" : \"nfg\",\r\n    \"Password\" : \"\",\r\n    \"RepeatPaswoord\" : \"\",\r\n    \"Nombre\" : \"\",\r\n    \"Fantasia\" : \"\",\r\n    \"Apellido\" : \"\",\r\n    \"Mail\" : \"\",\r\n    \"Cuit\" : \"\",\r\n    \"Ciudad\" : {\r\n        \"Id\": 1,\r\n        \"Code\": 1,\r\n        \"Descript\": \"Rafaela\",\r\n        \"CodPostal\": \"2300\",\r\n        \"Province\": {\r\n            \"Id\": 1,\r\n            \"Code\": 1,\r\n            \"Descript\": \"Santa Fe\",\r\n            \"Country\": {\r\n                \"Id\": 1,\r\n                \"Code\": 1,\r\n                \"Descript\": \"Argentina\"\r\n            }\r\n        }\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{url}}:8085/Users/CreateUser",
+					"protocol": "http",
+					"host": [
+						"{{url}}"
+					],
+					"port": "8085",
+					"path": [
+						"Users",
+						"CreateUser"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetCustomers",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "connectionId",
+						"type": "text",
+						"value": "1bf8f674610b0f3eb6bbb795061807c19b6ef5xz"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{url}}:8085/Provinces/GetProvinces",
+					"protocol": "http",
+					"host": [
+						"{{url}}"
+					],
+					"port": "8085",
+					"path": [
+						"Provinces",
+						"GetProvinces"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ValidateToken",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "connectionId",
+						"type": "text",
+						"value": "1bf8f674610b0f3eb6bbb795061807c19b6ef5xz"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{url}}:8085/Provinces/GetProvinces",
+					"protocol": "http",
+					"host": [
+						"{{url}}"
+					],
+					"port": "8085",
+					"path": [
+						"Provinces",
+						"GetProvinces"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
